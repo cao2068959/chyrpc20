@@ -2,7 +2,7 @@
 
 这是什么?  一个轻量级的RPC框架
 
-为什么造这个轮子? ***~~因为我太闲了~~***
+为什么造这个轮子? ***~~因为我太闲了~~*** 
 
 ## 项目架构
  注册中心 : zookeeper  (使用curator 操作包)
@@ -16,6 +16,13 @@
 
 
 ## 快速体验
+
+### spring boot 的模式
+如果项目使用 spring boot 那么还提供了 spring-boot-starter 来支持 全注解的模式
+传送门
+
+[chy-rpc-spring-boot-starter](https://github.com/cao2068959/rpc-starter "")
+
 
 ### 运行环境
 JDK 8
@@ -102,9 +109,3 @@ public interface INoInterface {
 INoInterface iNoInterface = chyRpcApplication.getService("noInterface",INoInterface.class);
 iNoInterface.exec("没有接口呀");
 ```
-
-### spring boot 的模式
-如果项目使用 spring boot 那么还提供了 spring-boot-starter 来支持 全注解的模式
-传送门
-
-[chy-rpc-spring-boot-starter](https://github.com/cao2068959/rpc-starter "")
