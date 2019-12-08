@@ -33,7 +33,6 @@ public class ChyRpcApplication {
     /**
      * zk的地址,集群里可以用 逗号分隔
      */
-    @Setter
     private String zookeeperAddress = "127.0.0.1:2181";
 
     /**

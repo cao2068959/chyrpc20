@@ -44,13 +44,12 @@ JDK 8
 
 ```java
  //创建上下文对象
- ChyRpcApplication chyRpcApplication = new ChyRpcApplication();
+ //参数是 zookeeper 所在地址,如果是集群用逗号分隔
+ ChyRpcApplication chyRpcApplication = new ChyRpcApplication("127.0.0.1:2181");
  //设置提供者暴露出去的端口,这里netty 将在这个端口上创建服务端,等待消费者调用
  chyRpcApplication.setPort(7778);
  //设置消费者能访问到的本机的ip地址
  chyRpcApplication.setIp("127.0.0.1");
- //设在 zookeeper 所在地址,如果是集群用逗号分隔
- chyRpcApplication.setZookeeperAddress("127.0.0.1:2181");
  //把需要远程调用的方法给注册进入 上下文对象中,注册进入的服务名称叫做userSName
  chyRpcApplication.register("userSName", new UserServiceImp());
 
@@ -59,9 +58,8 @@ JDK 8
 ### 消费者配置
 ```java
  //创建上下文对象
-ChyRpcApplication chyRpcApplication = new ChyRpcApplication();
- //设在 zookeeper 所在地址,如果是集群用逗号分隔
-chyRpcApplication.setZookeeperAddress("127.0.0.1:2181");
+ //参数是 zookeeper 所在地址,如果是集群用逗号分隔
+ChyRpcApplication chyRpcApplication = new ChyRpcApplication("127.0.0.1:2181");
 //这里会去zookeeper 根据服务的名称(第一个参数)寻找是否有提供者 提供了对应的服务,然后生成代理对象
 //这里 UserService 是上面 UserServiceImp 的接口
 //如果注册了 多个同样名称的服务,那么这里会使用轮询机制
