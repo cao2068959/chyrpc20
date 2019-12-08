@@ -11,8 +11,7 @@
  
  序列化 :  kryo  
  
-[foryou]: readmeImg/qy.png
-
+![image](/readmeImg/qy.png)
 
 
 ## 快速体验
