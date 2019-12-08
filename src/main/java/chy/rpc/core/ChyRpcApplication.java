@@ -4,6 +4,8 @@ import chy.rpc.core.bean.RemoteServices;
 import chy.rpc.core.netty.NettyRpcService;
 import chy.rpc.core.proxy.ProxyFactory;
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.api.CuratorEvent;
@@ -22,14 +24,32 @@ import java.util.regex.Pattern;
 
 public class ChyRpcApplication {
 
+    @Setter
     private String root = "chyrpc";
+
+    @Setter
     private String secRoot = "/RPCsevice";
 
+    /**
+     * zk的地址,集群里可以用 逗号分隔
+     */
+    @Setter
     private String zookeeperAddress = "127.0.0.1:2181";
-    //PRC远程端口
+
+    /**
+     * PRC远程端口
+     */
+    @Getter
+    @Setter
     private int port;
-    //PRC调用的IP地址
+
+    /**
+     * 提供者的ip地址,消费者将会通过这个ip和提供者消费服务
+     */
+    @Getter
+    @Setter
     private String ip = "127.0.0.1";
+
     private CuratorFramework curatorFramework;
     //远程服务的缓存
     private Map<String, RemoteServices> serviceCache = new ConcurrentHashMap<>();
@@ -58,8 +78,8 @@ public class ChyRpcApplication {
     private void initZookeeper(){
         curatorFramework = CuratorFrameworkFactory.builder().namespace(root)
                 .connectString(zookeeperAddress)
-                .connectionTimeoutMs(10000)
-                .sessionTimeoutMs(10000)
+                .connectionTimeoutMs(3000)
+                .sessionTimeoutMs(2000)
                 .retryPolicy(new ExponentialBackoffRetry(1000, 3))
                 .build();
         curatorFramework.start();
@@ -229,23 +249,6 @@ public class ChyRpcApplication {
 
         String[] result = {serviceName,matcher.group(2)} ;
         return result;
-    }
-
-
-    public int getPort() {
-        return port;
-    }
-
-    public void setPort(int port) {
-        this.port = port;
-    }
-
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
     }
 
     public static void main(String[] args) {

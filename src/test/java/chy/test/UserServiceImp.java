@@ -1,6 +1,10 @@
 package chy.test;
 
+import chy.test.bean.Query;
+import chy.test.bean.User;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class UserServiceImp implements UserService {
@@ -9,16 +13,27 @@ public class UserServiceImp implements UserService {
 
     @Override
     public String getUser(Integer id) {
-       // System.out.println("我执行了远程的方法哈哈哈哈");
-        return "xxxxxxxxxxx";
+        return "getUser:"+id;
+    }
+
+    @Override
+    public User getUser(Query query) {
+        User user = new User();
+        user.setDate(new Date());
+        user.setName(query.getName());
+        user.setAge(query.getAge());
+        return user;
     }
 
 
-    public List xxx(){
+    @Override
+    public List list(){
         List l = new ArrayList();
         l.add("xxx");
         l.add("44444");
         l.add(565345);
         return l;
     }
+
+
 }
